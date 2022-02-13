@@ -6,6 +6,7 @@
 #include <math.h>
 #include <vector>
 #include <iostream>
+#include <fstream>
 using namespace sf;
 
 const float PI = 3.14159265;
@@ -34,6 +35,8 @@ private:
 	void initVars();
 	void initWindow();
 	void initSpirograph();
+	void useKeyboard();
+	void useConfig();
 	void input();
 public:
 	// Constructors & Destructors
