@@ -2,7 +2,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include "Game.h"
-using namespace std;
 using namespace sf;
 
 

@@ -38,6 +38,7 @@ private:
 	void useKeyboard();
 	void useConfig();
 	void input();
+	void saveConfig();
 public:
 	// Constructors & Destructors
 	Game();

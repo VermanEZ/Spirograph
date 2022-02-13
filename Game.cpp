@@ -24,8 +24,7 @@ void Game::useConfig()
 	std::ifstream config("config.txt");
 	std::string s;
 	int c = 0;
-	while (!config.eof()) {
-		getline(config, s);
+	while (std::getline(config, s) && s.find(",") != -1) {
 		int middle = s.find(",");
 		float length = std::stod(s.substr(0, middle));
 		float speed = std::stod(s.substr(middle + 1, s.length()));
@@ -55,6 +54,15 @@ void Game::useKeyboard()
 		in = in * PI / 180;
 		this->speed_of_arms.push_back(in);
 	}
+}
+
+void Game::saveConfig()
+{
+	std::ofstream config("config.txt");
+	for (int i = 0; i < this->numberOfArms; i++) {
+		config << this->length_of_arms[i] << "," << this->speed_of_arms[i] * 180 / PI << '\n';
+	}
+	std::cout << "Config saved\n";
 }
 
 void Game::initWindow()
@@ -141,6 +149,8 @@ void Game::pollEvents()
 				this->window->close();
 			if (this->event.key.code == Keyboard::Space)
 				this->showCircles = !this->showCircles;
+			if (this->event.key.code == Keyboard::E)
+				this->saveConfig();
 			break;
 		}
 	}
