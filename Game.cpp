@@ -47,8 +47,8 @@ void Game::initSpirograph()
 	}
 	// Init arms
 	this->arms.setPrimitiveType(Lines);
+	int k = 0;
 	for (int i = 1; i < this->numberOfArms * 2; i += 2) {
-		static int k = 0;
 		if (k == 0) {
 			this->arms.append(Vertex(Vector2f(this->window->getSize().x / 2, this->window->getSize().y / 2), this->armsColor));
 			this->arms.append(Vertex(Vector2f(this->window->getSize().x / 2, this->window->getSize().y / 2 - this->length_of_arms[k]), this->armsColor));
@@ -64,11 +64,11 @@ void Game::initSpirograph()
 	// Init circles
 	this->showCircles = false;
 	for (int i = 0; i < this->numberOfArms; i++) {
-		CircleShape temp;
-		temp.setRadius(this->length_of_arms[i]);
-		temp.setFillColor(Color::Transparent);
-		temp.setOutlineColor(this->circlesColor);
-		temp.setOutlineThickness(1.f);
+		CircleShape* temp = new CircleShape;
+		temp->setRadius(this->length_of_arms[i]);
+		temp->setFillColor(Color::Transparent);
+		temp->setOutlineColor(this->circlesColor);
+		temp->setOutlineThickness(1.f);
 		this->circles.push_back(temp);
 	}
 }
@@ -84,6 +84,9 @@ Game::Game()
 
 Game::~Game()
 {
+	for(auto circle : this->circles) {
+		delete circle;
+	}
 	delete this->window;
 }
 
@@ -126,8 +129,8 @@ void Game::updateSpirograph()
 			this->arms[i].position.y = this->arms[i - 1].position.y + this->length_of_arms[i/2] * std::sin(this->current_angles[i/2]);
 		}
 		this->current_angles[i/2] += (this->speed_of_arms[i/2] / this->framerate);
-		this->circles[i / 2].setPosition(this->arms[i - 1].position.x - this->circles[i / 2].getRadius(),
-										 this->arms[i - 1].position.y - this->circles[i / 2].getRadius());
+		this->circles[i / 2]->setPosition(this->arms[i - 1].position.x - this->circles[i / 2]->getRadius(),
+										 this->arms[i - 1].position.y - this->circles[i / 2]->getRadius());
 	}
 	this->lines.append(Vertex(this->arms[numberOfArms*2 - 1].position, this->linesColor));
 }
@@ -144,7 +147,7 @@ void Game::renderSpirograph()
 	this->window->draw(this->arms);
 	if (showCircles) {
 		for (auto circle : this->circles) {
-			this->window->draw(circle);
+			this->window->draw(*circle);
 		}
 	}
 }

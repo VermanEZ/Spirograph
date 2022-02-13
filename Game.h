@@ -25,7 +25,7 @@ private:
 	int numberOfArms;
 	VertexArray arms;
 	VertexArray lines;
-	std::vector<CircleShape> circles;
+	std::vector<CircleShape*> circles;
 	bool showCircles;
 	std::vector<float> length_of_arms;
 	std::vector<float> speed_of_arms;
