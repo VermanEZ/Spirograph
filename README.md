@@ -8,7 +8,7 @@ To compile this with mingw:
 ```console
 $ g++ main.cpp Game.cpp -o main.exe -I<sfml-install-path>/include -L<sfml-install-path>/lib -lsfml-graphics -lsfml-window -lsfml-system
 ```
-On windows you'll need to have sfml-graphics-2.dll sfml-window-2.dll sfml-system-2.dll in the program directory, this dlls are located in sfml-install-path/bin
+On windows you'll need to have sfml-graphics-2.dll sfml-window-2.dll sfml-system-2.dll in the program directory, these dlls are located in sfml-install-path/bin
 ## Controls
 |Keys|Description|
 |---|---|
